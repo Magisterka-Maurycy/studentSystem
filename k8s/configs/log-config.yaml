@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+  namespace: auth
+data:
+  LogstashEnabled: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dsa-config
+  namespace: dsa
+data:
+  LogstashEnabled: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mba-config
+  namespace: mba
+data:
+  LogstashEnabled: "false"

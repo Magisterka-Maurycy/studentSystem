@@ -1,0 +1,7 @@
+{
+    "projects":   [
+        {"fileName":"project1", "projectName":"project 1 name"},
+        {"fileName":"project2", "projectName":"project 2 name"},
+        {"fileName":"project3", "projectName":"project 3 name"}
+    ]
+}

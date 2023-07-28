@@ -1,0 +1,6 @@
+{
+    "students":   [
+        {"email":"student1@studia.pl", "userName":"student1"},
+        {"email":"student2@studia.pl", "userName":"student2"}
+    ]
+}
