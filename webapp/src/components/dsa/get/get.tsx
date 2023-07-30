@@ -28,10 +28,10 @@ interface GetProps {
 export const GetDsa = component$((cProps: GetProps) => {
   const data = useStore<{ files: string[] }>({ files: [] });
   const capitalizedName = useResource$(async({track}) => {
-    track((()=>cProps.updateGet.value))
+    track((()=>cProps?.updateGet?.value))
     console.log('update')
     data.files = await getForStudent();
-    return cProps.updateGet.value
+    return cProps?.updateGet?.value
   });
   return (
     <div>
@@ -43,7 +43,7 @@ export const GetDsa = component$((cProps: GetProps) => {
         get data
       </button>
       <br />
-      {data.files.map((value) => (
+      {data?.files.map((value) => (
         <>
           {value}
           <br />
