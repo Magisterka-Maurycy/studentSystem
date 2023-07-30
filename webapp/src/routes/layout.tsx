@@ -1,5 +1,6 @@
-import { component$, Slot } from "@builder.io/qwik";
+import { component$, Slot, useVisibleTask$ } from "@builder.io/qwik";
 import { type RequestHandler } from "@builder.io/qwik-city";
+import { refreshUser } from "~/components/auth/login/login";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -12,7 +13,19 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
+
+
 export default component$(() => {
+  useVisibleTask$(() => {
+    const timer = setInterval(() => {
+      console.log('refresh start')
+      refreshUser()
+      console.log('refresh done')
+    }, 5000);
+  
+    return () => clearInterval(timer);
+  });
+  
   return <>
   <Slot />
   </>;
