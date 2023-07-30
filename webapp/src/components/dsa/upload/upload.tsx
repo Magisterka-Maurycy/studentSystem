@@ -1,5 +1,5 @@
 import { component$, Signal, type NoSerialize } from "@builder.io/qwik";
-import { z } from "@builder.io/qwik-city";
+import { server$, z } from "@builder.io/qwik-city";
 import { formAction$, useForm, zodForm$ } from "@modular-forms/qwik";
 import { dsaUrl, getUserName } from "../schemas";
 
