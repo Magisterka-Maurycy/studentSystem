@@ -1,13 +1,11 @@
-import { $, QRL, component$, useComputed$, useSignal } from "@builder.io/qwik";
-import { z } from "@builder.io/qwik-city";
+import { component$, useComputed$, useSignal } from "@builder.io/qwik";
+import { server$, z } from "@builder.io/qwik-city";
 import {
-  SubmitHandler,
   formAction$,
   useForm,
   zodForm$,
 } from "@modular-forms/qwik";
 import { authUrl, emailSchema, passwordSchema } from "../schemas";
-import { log } from "console";
 
 const loginSchema = z.object({
   email: emailSchema,
@@ -51,6 +49,39 @@ const useFormAction = formAction$<LoginForm>(async (values: LoginForm, ev) => {
 
   return { message: "true" };
 }, zodForm$(loginSchema));
+
+export const refreshUser = server$(async function (){
+  const refreshToken = this.cookie.get("refresh_token")?.value
+	if(refreshToken == undefined){
+    console.log('refresh token undefined')
+    return
+	}
+	const bodySet = '{"refreshToken":"' + refreshToken + '"}';
+	const options = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: bodySet
+	};
+	const response = await fetch(authUrl + 'keycloak/refresh', options);
+  try {
+    const responseJson = await response.json();
+    this.cookie.set("access_token",responseJson.access_token, {
+      path: "/",
+      maxAge: 60 * 60 * 24,
+      sameSite: 'strict',
+      secure: true
+    })
+    this.cookie.set("refresh_token",responseJson.refresh_token, {
+      path: "/",
+      maxAge: 60 * 60 * 24,
+      sameSite: 'strict',
+      secure: true
+    })  
+  } catch (error) {
+    console.log('failed json')
+  }
+	
+})
 
 export const Login = component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
