@@ -1,5 +1,4 @@
-import { useLocation, type RequestHandler } from "@builder.io/qwik-city";
-import { EventEmitter } from "stream";
+import { type RequestHandler } from "@builder.io/qwik-city";
 import { dsaUrl } from "~/components/dsa/schemas";
 
 export const onGet: RequestHandler = async (event) => {
