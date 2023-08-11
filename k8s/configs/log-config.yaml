@@ -13,11 +13,3 @@ metadata:
   namespace: dsa
 data:
   LogstashEnabled: "false"
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mba-config
-  namespace: mba
-data:
-  LogstashEnabled: "false"
